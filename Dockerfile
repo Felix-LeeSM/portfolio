@@ -23,7 +23,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
-COPY --from=tailwind-builder /app/build/output.css ./public/css/output.css
+COPY --from=tailwind-builder /app/build/output.css ./public/output.css
 
 COPY . .
 
