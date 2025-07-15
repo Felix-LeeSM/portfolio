@@ -18,7 +18,7 @@ FROM node:22-alpine AS runner
 WORKDIR /app
 
 # 프로덕션에 필요한 종속성만 설치하기 위해 package.json 파일을 먼저 복사합니다.
-COPY package.json package-lock.json./
+COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
 COPY --from=tailwind-builder /app/public/output.css ./public/css/output.css
