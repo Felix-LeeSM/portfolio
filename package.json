@@ -1,9 +1,9 @@
 {
-  "name": "portfolio_react",
+  "name": "portfolio",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "pm2-runtime start src/app.js --name portfolio_react",
+    "start": "pm2-runtime start src/app.js --name portfolio",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind": "npx tailwindcss -i ./src/input.css -o ./public/output.css",
     "tailwind:watch": "npx tailwindcss -i ./src/input.css -o ./public/output.css --watch"

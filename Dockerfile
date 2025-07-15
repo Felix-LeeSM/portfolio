@@ -1,5 +1,5 @@
 # 1. 베이스 이미지 선택 (Node.js 20 LTS 버전 사용)
-FROM node:22-alpine
+FROM node:22-slim
 
 # 2. 앱 디렉토리 생성 및 작업 디렉토리 설정
 WORKDIR /usr/src/app
