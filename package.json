@@ -5,13 +5,15 @@
   "scripts": {
     "start": "pm2-runtime start src/app.js --name portfolio",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tailwind": "npx tailwindcss -i ./src/input.css -o ./public/output.css",
-    "tailwind:watch": "npx tailwindcss -i ./src/input.css -o ./public/output.css --watch"
+    "tailwind": "tailwindcss -i ./src/input.css -o ./public/output.css",
+    "tailwind:watch": "tailwindcss -i ./src/input.css -o ./public/output.css --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^5.1.0",
+    "pm2": "^6.0.8",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
