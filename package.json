@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "pm2-runtime start src/app.js --name portfolio",
+    "start": "pm2 start src/app.js --name portfolio",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind": "tailwindcss -i ./src/input.css -o ./public/output.css",
     "tailwind:watch": "tailwindcss -i ./src/input.css -o ./public/output.css --watch"
