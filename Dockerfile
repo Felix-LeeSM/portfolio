@@ -27,6 +27,8 @@ COPY --from=tailwind-builder /app/build/output.css ./public/output.css
 
 COPY . .
 
+USER node
+
 EXPOSE 80
 
 CMD [ "npm", "start" ]
