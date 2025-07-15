@@ -1,20 +1,30 @@
-# 1. 베이스 이미지 선택 (Node.js 20 LTS 버전 사용)
-FROM node:22-slim
+FROM alpine:latest AS tailwind-builder
 
-# 2. 앱 디렉토리 생성 및 작업 디렉토리 설정
-WORKDIR /usr/src/app
+# Docker BuildKit이 제공하는 자동 아키텍처 변수. '--platform' 플래그에 따라 변경됨.
+ARG TARGETARCH
 
-# 3. 의존성 설치를 위해 package.json과 package-lock.json 복사
-# (소스 코드보다 먼저 복사하여 Docker 레이어 캐시를 활용)
-COPY package*.json ./
-RUN npm install
+WORKDIR /app
 
-# 4. 애플리케이션 소스 코드 복사
+RUN apk add --no-cache curl && \
+    curl -sLo./tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-${TARGETARCH} && \
+    chmod +x./tailwindcss
+
 COPY . .
-RUN npm run tailwind
 
-# 5. 애플리케이션이 사용할 포트 노출
-EXPOSE 3000
+RUN ./tailwindcss -i./src/input.css -o ./build/output.css --minify
 
-# 6. 컨테이너 시작 시 실행할 명령어 정의
+FROM node:22-alpine AS runner
+
+WORKDIR /app
+
+# 프로덕션에 필요한 종속성만 설치하기 위해 package.json 파일을 먼저 복사합니다.
+COPY package.json package-lock.json./
+RUN npm ci --omit=dev
+
+COPY --from=tailwind-builder /app/public/output.css ./public/css/output.css
+
+COPY . .
+
+EXPOSE 80
+
 CMD [ "npm", "start" ]
